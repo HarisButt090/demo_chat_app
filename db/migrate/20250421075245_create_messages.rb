@@ -7,6 +7,7 @@ class CreateMessages < ActiveRecord::Migration[7.0]
       t.references :instructor, null: false, foreign_key: { to_table: :users }
       t.string :content
       t.string :message_type
+      t.datetime :read_at
 
       t.timestamps
     end
