@@ -9,12 +9,12 @@ module Types
     end
     
     def notification_received(user_id:)
-      p "Hello from subscription Method Notification Received - User ID: #{user_id}, Object: #{object.inspect} 🔔"
+      p "Hello from subscription Method Notification Received - User ID: #{user_id}, Object: #{object.inspect}"
       camelize_keys(object.symbolize_keys) if object.present? && object[:receiver_id].to_s == user_id.to_s
     end
     
     def message_added(chat_id:)
-      p "Hello from subscription Method Message Added #{chat_id} #{object.inspect}😂"
+      p "Hello from subscription Method Message Added #{chat_id} #{object.inspect}"
       # triggered automatically, just return object
       camelize_keys(object.attributes.symbolize_keys) if object.present?
       

@@ -30,11 +30,6 @@ class GraphqlChannel < ApplicationCable::Channel
       more: result.subscription?
     }
 
-    p '------'
-    p data['variables']['messageId']
-    p payload
-    p result
-
     transmit(payload)
   end
 
