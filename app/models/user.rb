@@ -10,5 +10,8 @@ class User < ApplicationRecord
   has_many :chat_users
   has_many :chats, through: :chat_users
   
+  has_many :outgoing_calls, class_name: 'Call', foreign_key: :caller_id, dependent: :destroy
+  has_many :incoming_calls, class_name: 'Call', foreign_key: :receiver_id, dependent: :destroy
+
 
 end
