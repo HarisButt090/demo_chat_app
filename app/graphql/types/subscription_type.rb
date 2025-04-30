@@ -12,6 +12,28 @@ module Types
       argument :chat_id, ID, required: true
     end
 
+    field :on_call_received, Types::Calls::CallType, null: true do
+      argument :user_id, ID, required: true
+    end
+
+    field :on_call_status_updated, Types::Calls::CallType, null: true do
+      argument :call_id, ID, required: true
+    end
+    
+    def on_call_status_updated(call_id:)
+      if object.present? && object.id.to_s == call_id.to_s
+        p "Subscription Triggered: Call Status Updated - #{object.status} for Call ID: #{call_id}"
+        camelize_keys(object.attributes.symbolize_keys)
+      end
+    end      
+
+    def on_call_received(user_id:)
+      if object.present? && object.receiver_id.to_s == user_id.to_s
+        p "Subscription Triggered: Incoming Call for User ID: #{user_id} - Call ID: #{object.id}"
+        camelize_keys(object.attributes.symbolize_keys)
+      end
+    end    
+
     def message_read(chat_id:)
       if object.present? && object.chat_id.to_s == chat_id.to_s
         p "Subscription Triggered: Message Read for Chat ID: #{chat_id} - Message ID: #{object.id}"

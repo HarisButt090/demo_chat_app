@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_21_075245) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_24_123011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "calls", force: :cascade do |t|
+    t.bigint "caller_id", null: false
+    t.bigint "receiver_id", null: false
+    t.integer "call_type", default: 0, null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.integer "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["caller_id"], name: "index_calls_on_caller_id"
+    t.index ["receiver_id"], name: "index_calls_on_receiver_id"
+  end
 
   create_table "chat_users", force: :cascade do |t|
     t.bigint "chat_id", null: false
@@ -80,6 +94,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_21_075245) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "calls", "users", column: "caller_id"
+  add_foreign_key "calls", "users", column: "receiver_id"
   add_foreign_key "chat_users", "chats"
   add_foreign_key "chat_users", "users"
   add_foreign_key "messages", "chats"

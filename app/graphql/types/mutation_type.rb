@@ -5,6 +5,10 @@ module Types
     field :send_message, mutation: Mutations::Messages::SendMessage
     field :login_user, mutation: Mutations::Users::LoginUser
     field :mark_message_as_read, mutation: Mutations::Messages::MarkMessageAsRead
+    field :start_call, mutation: Mutations::Calls::StartCall
+    field :accept_call, mutation: Mutations::Calls::AcceptCall
+    field :reject_call, mutation: Mutations::Calls::RejectCall
+    field :end_call, mutation: Mutations::Calls::EndCall
 
   end
 end
